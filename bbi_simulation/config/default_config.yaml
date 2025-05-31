@@ -1,0 +1,88 @@
+# Default configuration for Brain-to-Brain Interface Simulation
+
+# General simulation parameters
+simulation:
+  duration: 10.0  # Total simulation time in seconds
+  dt: 0.01        # Time step in seconds (10ms)
+  latency_jitter: 0.01  # Maximum latency/jitter in seconds (±10ms)
+  random_seed: 42  # Random seed for reproducibility
+
+# EmotionSignal parameters
+emotion_signal:
+  kind: "sine"    # Type of waveform: "sine", "square", "data"
+  freq: 0.2       # Base frequency in Hz
+  dims: 2         # Number of emotion dimensions (e.g., valence/arousal)
+  channels: 8     # Number of EEG channels
+  
+  # Channel configuration
+  channel_names: ["Fp1", "Fp2", "F3", "F4", "C3", "C4", "P3", "P4"]
+  channel_amplitudes: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]  # Relative amplitude per channel
+  
+  # Noise configuration
+  noise:
+    gaussian:
+      enabled: true
+      std: 0.1    # Standard deviation for Gaussian noise
+    powerline:
+      enabled: true
+      freq: 50    # Power line frequency (50Hz or 60Hz)
+      amplitude: 0.05  # Relative amplitude of power line noise
+    
+  # External data loading
+  data_loading:
+    enabled: false
+    file_path: ""  # Path to EEG data file
+    format: "csv"  # Format: "csv" or "edf"
+
+# Decoder parameters
+decoder:
+  type: "simple"  # "simple" or "ml"
+  noise_std: 0.1  # Standard deviation for additive Gaussian noise
+  window_size: 50  # Size of the sliding window (in samples)
+  
+  # ML model parameters (used when type="ml")
+  ml:
+    model_type: "auto"  # "svm", "rf", "mlp", or "auto" (selects best)
+    cv_folds: 5         # Number of cross-validation folds
+    metric: "f1_macro"  # Primary metric for model selection
+    
+    # Model-specific parameters
+    svm:
+      kernel: "rbf"
+      C: 1.0
+      gamma: "scale"
+    
+    rf:
+      n_estimators: 100
+      max_depth: null
+      min_samples_split: 2
+    
+    mlp:
+      hidden_layer_sizes: [100]
+      activation: "relu"
+      solver: "adam"
+      max_iter: 200
+    
+    # Model persistence
+    save_model: false
+    model_path: "models/decoder_model.pkl"
+
+# Stimulator parameters
+stimulator:
+  tau: 0.1  # Decay time constant in seconds
+  threshold: 0.0  # Activation threshold
+
+# Analysis parameters
+analysis:
+  parameter_sweep:
+    enabled: false
+    output_csv: "results/parameter_sweep.csv"
+    
+    # Parameters to sweep
+    params:
+      tau: [0.05, 0.1, 0.2, 0.5]
+      window_size: [25, 50, 75, 100]
+      noise_std: [0.05, 0.1, 0.2]
+    
+    # Number of repetitions per parameter combination
+    repetitions: 3

@@ -1,0 +1,2 @@
+mean_cross_correlation,mean_rmse,cross_correlation_dim1,cross_correlation_dim2,rmse_dim1,rmse_dim2,signal_kind,signal_freq,signal_dims,decoder_noise_std,decoder_window_size,stimulator_tau,stimulator_dt,latency_jitter
+0.9687764713527292,0.25552817517431886,0.9769997613120192,0.9605531813934393,0.2042376256616098,0.3068187246870279,sine,0.2,2,0.1,50,0.1,0.01,0.01
