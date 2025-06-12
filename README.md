@@ -431,7 +431,7 @@ If you use this software in your research, please cite:
 @article{Almahjoub2025,
   title={Real-Time Affective Co-Regulation via Closed-Loop EEG–TMS Brain-to-Brain Interfaces: Technical Design and Clinical Ethics},
   author={Almahjoub, Mohanad},
-  journal={NPJ Digital Medicine},
+  journal={},
   year={2025},
   doi={10.xxxx/xxxxx}
 }
